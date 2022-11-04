@@ -10,4 +10,9 @@ public class Symmetric {
         cipher.init(Cipher.ENCRYPT_MODE, secretKey);
         return cipher.doFinal(contentBytes);
     }
+    public static byte[] decrypt(byte[] encStrContentByte, String symmetricAlgo, SecretKey secretKey) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+        Cipher cipher = Cipher.getInstance(symmetricAlgo);//"AES/ECB/PKCS5Padding"
+        cipher.init(Cipher.DECRYPT_MODE, secretKey);
+        return cipher.doFinal(encStrContentByte);
+    }
 }

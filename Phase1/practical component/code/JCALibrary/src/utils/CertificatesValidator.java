@@ -1,13 +1,13 @@
+package utils;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.*;
 import java.util.*;
 
 
-public class Main {
+public class CertificatesValidator {
     /**
      * The list of certificate needs to be in order end-entity(certificado folha), cert-int(certificado intermédios), trust-anchors(certificado auto-assinado).
      * */

@@ -24,14 +24,9 @@ public class FileUtils {
     }
 
     public static void writeFile(String path,byte[] content) throws IOException {
-        String encString = new String(content, StandardCharsets.US_ASCII);
-        File encryptedFile = new File(path);
-        FileWriter writer;
-        writer = new FileWriter(encryptedFile);
-        BufferedWriter bufWriter = new BufferedWriter(writer);
-        bufWriter.write(encString + System.lineSeparator());
-        bufWriter.close();
-        writer.close();
+        FileOutputStream fos = new FileOutputStream(path);
+        fos.write(content);
+        fos.close();
     }
     public static Base64OutputStream writeBase64(String fileName, byte[] contentBytes) throws IOException {
         FileOutputStream baseOut = new FileOutputStream(String.valueOf(Paths.get(fileName)));

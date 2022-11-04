@@ -71,11 +71,11 @@ public class HybridScheme {
                 System.out.println("File with original encrypted content");
                 String fileContentEncrypted = in.nextLine();
                 System.out.println("File with encrypted symmetric key");
-                String fileSymmetricKeyEncrypted = in.nextLine();
+                String fileAsymmetricKeyEncrypted = in.nextLine();
                 System.out.println("Keystore with recipient's private key");
                 String fileKeyStorePrivateKey = in.nextLine();
                 PrivateKey pvk=null;
-                if (!fileContentEncrypted.contains(".")||!fileSymmetricKeyEncrypted.contains(".")||!fileKeyStorePrivateKey.contains(".")) {
+                if (!fileContentEncrypted.contains(".")||!fileAsymmetricKeyEncrypted.contains(".")||!fileKeyStorePrivateKey.contains(".")) {
                     System.out.println("Invalid input");
                 }
                 else {
@@ -87,7 +87,7 @@ public class HybridScheme {
                         System.out.println("Invalid file extension");
                         break;
                     }
-                    Decrypter.decrypt(fileContentEncrypted,fileSymmetricKeyEncrypted, pvk, SECRETKEYALGO, SYMMETRICALGO, ASYMMETRICALGO);
+                    Decrypter.decrypt(fileContentEncrypted,fileAsymmetricKeyEncrypted, pvk, SECRETKEYALGO, SYMMETRICALGO, ASYMMETRICALGO);
                 }
             }
         } while(!res.equalsIgnoreCase("over"));
