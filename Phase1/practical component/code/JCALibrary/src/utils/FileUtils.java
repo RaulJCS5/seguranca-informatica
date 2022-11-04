@@ -31,12 +31,14 @@ public class FileUtils {
         BufferedWriter bufWriter = new BufferedWriter(writer);
         bufWriter.write(encString + System.lineSeparator());
         bufWriter.close();
+        writer.close();
     }
     public static Base64OutputStream writeBase64(String fileName, byte[] contentBytes) throws IOException {
         FileOutputStream baseOut = new FileOutputStream(String.valueOf(Paths.get(fileName)));
         Base64OutputStream out = new Base64OutputStream(baseOut);
         out.write(contentBytes);
         out.close();
+        baseOut.close();
         return out;
     }
     public static byte[] readBase64(String fileName) throws IOException {
@@ -44,6 +46,7 @@ public class FileUtils {
         Base64InputStream in = new Base64InputStream(baseIn);
         byte[] allBytes = in.readAllBytes();
         in.close();
+        baseIn.close();
         return allBytes;
     }
 }
