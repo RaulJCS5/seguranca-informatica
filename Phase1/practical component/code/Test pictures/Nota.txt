@@ -1,0 +1,11 @@
+Alice_1.cer and Alice_1.pfx where at the global package of project.
+
+##Test encrypt##
+-enc
+Alice_1.cer
+
+##Test decrypt##
+-dec
+encrypted-output/Alice_1_content.txt
+encrypted-output/Alice_1_key.txt
+Alice_1.pfx
