@@ -44,6 +44,8 @@ public class CertificatesValidator {
         PKIXParameters params = new PKIXParameters(Collections.singleton(anchor));
         params.setRevocationEnabled(false);
         CertPathValidator cpv = CertPathValidator.getInstance("PKIX");
+        // TODO: Do it with CertPathBuilder
+        // CertPathBuilder certPathBuilder = CertPathBuilder.getInstance("???");
         PKIXCertPathValidatorResult result = (PKIXCertPathValidatorResult) cpv.validate(cp, params);
         System.out.println(result);
     }
