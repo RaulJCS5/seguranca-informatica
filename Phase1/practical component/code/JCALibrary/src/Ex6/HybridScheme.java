@@ -28,7 +28,7 @@ para testar a aplicação.
 public class HybridScheme {
     private static final String PASSWORD = "changeit";
     private static final String SECRETKEYALGO = "AES";
-    private static final String SYMMETRICALGO = "AES/ECB/PKCS5Padding";
+    private static final String SYMMETRICALGO = "AES/ECB/PKCS5Padding";//CBC with IV
     private static final String ASYMMETRICALGO = "RSA";
 
     public static void main(String[] args) throws UnrecoverableKeyException, NoSuchPaddingException, IllegalBlockSizeException, CertificateException, NoSuchAlgorithmException, BadPaddingException, SignatureException, IOException, KeyStoreException, InvalidKeyException {
