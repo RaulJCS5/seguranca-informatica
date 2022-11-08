@@ -28,13 +28,13 @@ para testar a aplicação.
 public class HybridScheme {
     private static final String PASSWORD = "changeit";
     private static final String SECRETKEYALGO = "AES";
-    private static final String SYMMETRICALGO = "AES/ECB/PKCS5Padding";//CBC with IV
+    private static final String SYMMETRICALGO = "AES/CBC/PKCS5Padding";//CBC with IV
     private static final String ASYMMETRICALGO = "RSA";
 
-    public static void main(String[] args) throws UnrecoverableKeyException, NoSuchPaddingException, IllegalBlockSizeException, CertificateException, NoSuchAlgorithmException, BadPaddingException, SignatureException, IOException, KeyStoreException, InvalidKeyException {
+    public static void main(String[] args) throws UnrecoverableKeyException, NoSuchPaddingException, IllegalBlockSizeException, CertificateException, NoSuchAlgorithmException, BadPaddingException, SignatureException, IOException, KeyStoreException, InvalidKeyException, InvalidAlgorithmParameterException {
         initalizeApp();
     }
-    private static void initalizeApp() throws NoSuchPaddingException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, SignatureException, IOException, InvalidKeyException, CertificateException, KeyStoreException, UnrecoverableKeyException {
+    private static void initalizeApp() throws NoSuchPaddingException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, SignatureException, IOException, InvalidKeyException, CertificateException, KeyStoreException, UnrecoverableKeyException, InvalidAlgorithmParameterException {
         String res;
         String file;
         Cipher cipher = null;

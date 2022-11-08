@@ -18,7 +18,7 @@ com o conteúdo original decifrado.
 */
 public class Decrypter {
     private static final String DECRYPTEOUTPUTPACKAGE = "decrypted-output/";
-    public static void decrypt(String fileContentEncrypted, String fileAsymmetricKeyEncrypted, PrivateKey pvk, String secretKeyAlgo, String symmetricAlgo, String asymmetricAlgo) throws IOException, NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
+    public static void decrypt(String fileContentEncrypted, String fileAsymmetricKeyEncrypted, PrivateKey pvk, String secretKeyAlgo, String symmetricAlgo, String asymmetricAlgo) throws IOException, NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException, InvalidAlgorithmParameterException {
         //Decrypt base64 asymmetric key file
         byte[] encSecretKeyByte = readBase64(fileAsymmetricKeyEncrypted);
         System.out.println("Encrypted key:");
