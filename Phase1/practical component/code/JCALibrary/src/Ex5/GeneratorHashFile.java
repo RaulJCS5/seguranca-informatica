@@ -17,6 +17,13 @@ em anexo a este enunciado. Compare o resultado com os valores de hash apresentad
 de certificados do sistema operativo (ou outro da sua confiança).
 */
 
+/**
+ * # sha256
+ * openssl dgst -sha256 end-entities/Alice_1.cer
+ *
+ * openssl dgst -sha-1 cert-int/CA1-int.cer
+ * */
+
 public class GeneratorHashFile {
     public static void main(String[] args) throws NoSuchAlgorithmException {
         String[] splitcmd = justForTestExample();
