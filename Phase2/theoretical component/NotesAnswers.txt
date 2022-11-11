@@ -1,3 +1,8 @@
+Ex1.
+URL's
+https://www.cloudflare.com/learning/ssl/transport-layer-security-tls/
+https://www.cloudflare.com/learning/ssl/what-happens-in-a-tls-handshake/
+
 The Transport Layer Security (TLS) Record protocol secures application data using the keys created during the Handshake.
 The Record Protocol is responsible for securing application data and verifying its integrity.
 There are three main components to what the TLS protocol accomplishes: 
@@ -8,16 +13,15 @@ Encryption: hides the data being transferred from third parties.
 Authentication: ensures that the parties exchanging information are who they claim to be.
 Integrity: verifies that the data has not been forged or tampered with.
 
-Ex1.
 a)
 Autenticação: garante que as partes que trocam informações sejam quem alegam ser.
 O protocolo Transport Layer Security (TLS) Record protege os dados do aplicativo usando as chaves criadas durante o Handshake.
 O Record Protocol é responsável por proteger os dados do aplicativo e verificar sua integridade.
 Fragmenta, comprime, autentica (MAC) e depois cifra.
 
+b)
 Authentication: The client verifies the server's SSL certificate with the certificate authority that issued it. This confirms that the server is who it says it is, and that the client is interacting with the actual owner of the domain.
 
-b)
 Autenticação: O cliente verifica o certificado SSL do servidor com a autoridade de certificação que o emitiu. Isso confirma que o servidor é quem diz ser e que o cliente está interagindo com o proprietário real do domínio.
 
 The premaster secret: The client sends one more random string of bytes, the "premaster secret." The premaster secret is encrypted with the public key and can only be decrypted with the private key by the server. (The client gets the public key from the server's SSL certificate.)
@@ -31,3 +35,85 @@ O pre master secret dos handshakes seguintes e dos anteriores (guardados pelo at
 Perfect forward secrecy é a propriedade do handshake que garante que, se a chave privada for comprometida, não é possível decifrar master secret anteriores (e consequemente não é possível decifrar mensagens do record protocol).
 
 Ex2.
+URL's
+https://www.techtarget.com/searchsecurity/definition/salt
+
+With password salting, a random piece of data is added to the password before it runs through the hashing algorithm, making it unique and harder to crack.
+When using both hashing and salting, even if two users choose the same password, salting adds random characters to each password when the users enter them. 
+As a result, completely different hashes are generated to prevent the passwords and accounts from being compromised.
+Dictionary attacks
+Dictionary attacks are the advanced version of brute-force attacks. 
+In this type of attack, bad actors try the most common password word and character combinations. 
+They use a prearranged word list with their computed hash and then compare the hashes from a stolen password table with every hash on the list. 
+If they manage to find a match, they can easily find the password. 
+Salting makes this process more difficult and mitigates dictionary attacks.
+
+Com password salting, um dado aleatório é adicionado à senha antes que ela seja executada pelo algoritmo de hash, tornando-a única e mais difícil de decifrar.
+Ao usar hashing e salting, mesmo que dois usuários escolham a mesma senha, salting adiciona caracteres aleatórios a cada senha quando os usuários as inserem. 
+Como resultado, hashes completamente diferentes são gerados para evitar que as senhas e contas sejam comprometidas.
+Nesse tipo de ataque, os atores mal-intencionados tentam as combinações mais comuns de palavras de senha e caracteres.
+Eles usam uma lista de palavras pré-organizada com seu hash calculado e, em seguida, comparam os hashes de uma tabela de senha roubada com cada hash da lista.
+Se eles conseguirem encontrar uma correspondência, poderão encontrar facilmente a senha.
+Salting torna esse processo mais difícil e mitiga os ataques de dicionário.
+
+Ex3.
+URL's
+https://quadrantsec.com/security-issues-cookies/
+
+(u,H(u))u->utilizador H(u)->função de hash
+a)
+Cross-Site Request Forgery Attack (XSRF) The main problem with cookies is that websites can't distinguish if requests come from the actual user or someone else.
+Cross-Site Request Forgery Attack (XSRF) O principal problema com os cookies é que os sites não conseguem distinguir se as solicitações vêm do usuário real ou de outra pessoa.
+
+Como a construção do cookie é conhecida o atacante pode-se passar pelo utilizador.
+Com uma comunicação em HTTPS é possivel passar-se por outro utilizador conhecendo a construção do cookie.
+
+b)
+
+Require a secure connection:
+the main culprit for cookie-based attacks is an unsecured connection. 
+Configure your browser to send cookies only over secured SSL connections. 
+It might mean that some parts of certain websites won’t have access to cookies, but at least your accounts will remain secure.
+
+Don’t share with subdomains – 
+The more subdomains allowed access to your cookies, 
+the higher the risk of attack. 
+Setting your cookies for domains only, like “www.example.com,” will ensure cookies are sent only when there’s an exact match. 
+Setting cookies to include subdomains, like “.example.com,” will also include subdomains like “blog.example.com,” “forum.example.com,” and other areas of the website.
+
+Use the HttpOnly flag – A HttpOnly flag tells the browser not to allow JavaScript to access the cookie. 
+This is the best defense against XSS attacks because it prevents hackers from being able to retrieve and use information across sites.
+
+
+Ex4.
+URL's
+https://learn.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow
+https://www.ietf.org/archive/id/draft-ietf-oauth-v2-22.html
+https://cloud.google.com/docs/authentication/token-types#:~:text=ID%20tokens%20are%20JSON%20Web,and%20used%20by%20the%20application.
+
+a)
+The authorization and token endpoints allow the client to specify the scope of the access request using the scope request parameter. 
+In turn, the authorization server uses the scope response parameter to inform the client of the scope of the access token issued.
+
+b)
+The authorization code grant type is used to obtain both access tokens and refresh tokens and is optimized for confidential clients. 
+As a redirection-based flow, the client must be capable of interacting with the resource owner's user-agent (typically a web browser) and capable of receiving incoming requests (via redirection) from the authorization server.
+
+c)
+ID tokens are JSON Web Tokens (JWTs) that conform to the OpenID Connect (OIDC) specification. 
+They are composed of a set of key-value pairs called claims.
+Unlike access tokens, which are opaque objects that cannot be inspected by the application, ID tokens are meant to be inspected and used by the application.
+
+Ex5.
+URL's
+https://www.smartspaces.app/blog/role-based-access-control/
+https://en.wikipedia.org/wiki/Role-based_access_control
+
+a)
+In computer systems security, role-based access control (RBAC) or role-based security is an approach to restricting system access to authorized users. 
+It is an approach to implement mandatory access control (MAC) or discretionary access control (DAC).
+
+RBAC negates the need for numerous password changes every time someone changes their role. 
+Instead, role-based access control makes it possible to add or switch roles quickly and implement them in one go globally across all relevant systems, applications and platforms.
+
+b)Need to read
