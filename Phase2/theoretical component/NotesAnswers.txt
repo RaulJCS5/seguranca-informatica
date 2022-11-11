@@ -1,0 +1,33 @@
+The Transport Layer Security (TLS) Record protocol secures application data using the keys created during the Handshake.
+The Record Protocol is responsible for securing application data and verifying its integrity.
+There are three main components to what the TLS protocol accomplishes: 
+Encryption
+Authentication
+Integrity
+Encryption: hides the data being transferred from third parties. 
+Authentication: ensures that the parties exchanging information are who they claim to be.
+Integrity: verifies that the data has not been forged or tampered with.
+
+Ex1.
+a)
+Autenticação: garante que as partes que trocam informações sejam quem alegam ser.
+O protocolo Transport Layer Security (TLS) Record protege os dados do aplicativo usando as chaves criadas durante o Handshake.
+O Record Protocol é responsável por proteger os dados do aplicativo e verificar sua integridade.
+Fragmenta, comprime, autentica (MAC) e depois cifra.
+
+Authentication: The client verifies the server's SSL certificate with the certificate authority that issued it. This confirms that the server is who it says it is, and that the client is interacting with the actual owner of the domain.
+
+b)
+Autenticação: O cliente verifica o certificado SSL do servidor com a autoridade de certificação que o emitiu. Isso confirma que o servidor é quem diz ser e que o cliente está interagindo com o proprietário real do domínio.
+
+The premaster secret: The client sends one more random string of bytes, the "premaster secret." The premaster secret is encrypted with the public key and can only be decrypted with the private key by the server. (The client gets the public key from the server's SSL certificate.)
+
+O premaster secret: O cliente envia mais uma sequência aleatória de bytes, o "premaster secret". O premaster secret é criptografado com a chave pública e só pode ser descriptografado com a chave privada pelo servidor. (O cliente obtém a chave pública do certificado SSL do servidor.)
+
+O servidor decifra o pre master secret usando a chave privada.
+Este processo é seguro e garante confidencialidade do pre master secret.
+O que acontece se a chave privada for comprometida?
+O pre master secret dos handshakes seguintes e dos anteriores (guardados pelo atacante) podem ser decifrados.
+Perfect forward secrecy é a propriedade do handshake que garante que, se a chave privada for comprometida, não é possível decifrar master secret anteriores (e consequemente não é possível decifrar mensagens do record protocol).
+
+Ex2.
