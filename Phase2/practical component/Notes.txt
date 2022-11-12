@@ -1,0 +1,9 @@
+Convert a DER file (.crt .cer .der) to PEM
+openssl x509 -inform der -in secure-server.cer -out secure-server_cer.pem
+
+Convert a PKCS#12 file (.pfx .p12) containing a private key and certificates to PEM
+openssl pkcs12 -in secure-server.pfx -out secure-server_pfx.pem -nodes
+
+Convert a PKCS#12 file (.pfx .p12) containing a private key and certificates to PEM
+openssl pkcs12 -in CA.jks -out CA_jks.pem -nodes
+password: changeit
