@@ -26,6 +26,7 @@ Convert a DER file (.crt .cer .der) to PEM
 openssl x509 -inform der -in secure-server.cer -out secure-server_cer.pem
 
 Convert a PKCS#12 file (.pfx .p12) containing a private key and certificates to PEM ???? It appears an error when try to insert an empty password
+I had to instal this openssl https://indy.fulgan.com/SSL/
 openssl pkcs12 -in secure-server.pfx -out secure-server_pfx.pem -nodes
 
 Convert a PKCS#12 file (.pfx .p12) containing a private key and certificates to PEM
@@ -36,6 +37,15 @@ chrome://flags/
 certificates
 Allow invalid certificates for resources loaded from localhost.
 Enabled
+
+Configuration of file hosts
+Browse to the following path: %SystemRoot%\system32\drivers\etc\hosts
+(or as by default C:\Windows\System32\drivers\etc\hosts).
+Right-click on Notepad and select Run as administrator.
+And put
+127.0.0.1 www.secure-server.edu
+Run the server
+Browse for https://www.secure-server.edu:4433/
 
 https://nodejs.org/en/knowledge/HTTP/servers/how-to-create-a-HTTPS-server/#:~:text=To%20create%20an%20HTTPS%20server%2C%20you%20need%20two%20things%3A%20an,'self%2Dsigned%20certificates'.
 

@@ -11,9 +11,9 @@ const path = require('path')
 const PORT = 4433;
 const app = express();
 const direcClient = 'client/index.html'
-const directSSL = 'ssl'
-const cert_pem = 'cert.pem'
-const pfx_pem = 'key.pem'
+const directSSL = 'ssl/secure-server'
+const cert_pem = 'secure-server_cer.pem'
+const pfx_pem = 'secure-server_pfx.pem'
 
 //app.use('/',express.static(path.join(__dirname,'..',direcClient)))
 // Get request for resource /
@@ -34,6 +34,6 @@ const options = {
 // Create HTTPS server
 https.createServer(options, app).listen(PORT, 
   function (req, res) {
-      console.log("Server started at https://localhost:" + PORT);
+      console.log("Server started at https://www.secure-server.edu");
   }
 );
