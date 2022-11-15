@@ -1,9 +1,42 @@
+How to setup a basic https app:
+-> Create https-app directory
+--> Create client directory
+---> Create index.html file
+--> Create server/ssl directory
+---> Create index.js file
+->npm init -y
+->npm instal https
+->npm instal express
+->npm instal fs
+->npm instal path
+
+To generate a self-signed certificate, run the following in your shell:
+openssl genrsa -out key.pem
+openssl req -new -key key.pem -out csr.pem
+openssl x509 -req -days 9999 -in csr.pem -signkey key.pem -out cert.pem
+rm csr.pem
+
+Put key.pem and cert.pem in server/ssl directory
+To create a basic html template index.html Shift+1 then Enter
+In the index.js write code for ssl connection
+
+Then listen to PORT -> https://localhost:4433
+
 Convert a DER file (.crt .cer .der) to PEM
 openssl x509 -inform der -in secure-server.cer -out secure-server_cer.pem
 
-Convert a PKCS#12 file (.pfx .p12) containing a private key and certificates to PEM
+Convert a PKCS#12 file (.pfx .p12) containing a private key and certificates to PEM ???? It appears an error when try to insert an empty password
 openssl pkcs12 -in secure-server.pfx -out secure-server_pfx.pem -nodes
 
 Convert a PKCS#12 file (.pfx .p12) containing a private key and certificates to PEM
 openssl pkcs12 -in CA.jks -out CA_jks.pem -nodes
 password: changeit
+
+chrome://flags/
+certificates
+Allow invalid certificates for resources loaded from localhost.
+Enabled
+
+https://nodejs.org/en/knowledge/HTTP/servers/how-to-create-a-HTTPS-server/#:~:text=To%20create%20an%20HTTPS%20server%2C%20you%20need%20two%20things%3A%20an,'self%2Dsigned%20certificates'.
+
+https://www.sslshopper.com/article-most-common-openssl-commands.html
