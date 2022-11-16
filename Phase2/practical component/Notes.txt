@@ -24,6 +24,7 @@ Then listen to PORT -> https://localhost:4433
 
 Convert a DER file (.crt .cer .der) to PEM
 openssl x509 -inform der -in secure-server.cer -out secure-server_cer.pem
+openssl x509 -inform der -in Alice_2.cer -out alice2_cer.pem
 
 Convert a PKCS#12 file (.pfx .p12) containing a private key and certificates to PEM ???? It appears an error when try to insert an empty password
 I had to instal this openssl https://indy.fulgan.com/SSL/
