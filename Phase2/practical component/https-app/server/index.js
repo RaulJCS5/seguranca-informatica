@@ -36,13 +36,16 @@ const options = {
   // Necessary only if the server uses a self-signed certificate.
   ca: fs.readFileSync(path.join(__dirname,directSSL,ca_pem)), 
   // This is necessary only if using client certificate authentication.
-  //requestCert: true, 
+  // Requesting the client to provide a certificate, to authenticate.
+  requestCert: true,
+  // As specified as "true", so no unauthenticated traffic
+  // will make it to the specified route specified
   rejectUnauthorized: true
 };
 
 // Create HTTPS server
 https.createServer(options, app).listen(PORT, 
   function (req, res) {
-      console.log("Server started at https://www.secure-server.edu:"+PORT);
+      console.log(`Date->${new Date()} Server started at https://www.secure-server.edu:${PORT}`);
   }
 );
