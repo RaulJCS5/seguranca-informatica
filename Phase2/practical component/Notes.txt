@@ -53,6 +53,24 @@ And put
 Run the server
 Browse for https://www.secure-server.edu:4433/
 
+Install certificates:
+Pessoal:
+end-entities
+->Alice_1.cer
+->Alice_2.cer
+->(...)
+Autoridades de certificação de raiz fidedigna:
+trust-anchors
+->CA1.cer
+->CA2.cer
+Autoridades de certificação de intermediária
+cert-int
+->CA1-int.cer
+->CA2-int.cer
+pfx
+->Alice_1.pfx
+->(...)
+
 https://nodejs.org/en/knowledge/HTTP/servers/how-to-create-a-HTTPS-server/#:~:text=To%20create%20an%20HTTPS%20server%2C%20you%20need%20two%20things%3A%20an,'self%2Dsigned%20certificates'.
 
 https://www.sslshopper.com/article-most-common-openssl-commands.html
