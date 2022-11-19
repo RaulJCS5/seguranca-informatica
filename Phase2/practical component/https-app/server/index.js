@@ -26,11 +26,12 @@ const ca2_cer = 'ca2_cer.pem'
 // Get request for resource /
 app.get("/", function (req, res) {
     if (!req.client.authorized) {
-    return res.status(401).send('Invalid client certificate authentication.');
+      //return res.status(401).send('Invalid client certificate authentication.');
+      console.log('Without client certificate authentication.')
   }
   console.log(
       req.socket.remoteAddress
-      + ' ' + req.socket.getPeerCertificate().subject.CN
+      //+ ' ' + req.socket.getPeerCertificate().subject.CN
       + ' ' + req.method
       + ' ' + req.url);
   res.sendFile(path.join(__dirname,'..',direcClient));
@@ -66,7 +67,7 @@ const optionsWClient = {
 };
 
 // Create HTTPS server
-https.createServer(optionsWClient, app).listen(PORT, 
+https.createServer(options, app).listen(PORT, 
   function (req, res) {
       console.log(`Date->${new Date()} Server started at https://www.secure-server.edu:${PORT}`);
   }
