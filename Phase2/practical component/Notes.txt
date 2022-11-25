@@ -53,6 +53,10 @@ And put
 Run the server
 Browse for https://www.secure-server.edu:4433/
 
+In the client side should be CA1 trust certificate so that the client trust the server
+Install certificate CA1
+Inside secure-server_cer.pem add ca1-int_cer.pem
+
 Install certificates:
 Pessoal:
 end-entities
