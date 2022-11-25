@@ -14,6 +14,8 @@ const direcClient = 'client/index.html'
 const directSSL = 'ssl/secure-server'
 const cert_pem = 'secure-server_cer.pem'
 const pfx_pem = 'secure-server_pfx.pem'
+const cert2_pem = 'secure-server_cer2.pem'
+const pfx2_pem = 'secure-server_pfx2.pem'
 const ca_pem = 'CA_jks.pem'
 const cert_alice2 = 'alice2_cer.pem'
 const cert_alice1 = 'alice1_cer.pem'
@@ -49,8 +51,8 @@ const options = {
 // configure TLS handshake
 const optionsWClient = {
   // Necessary only if the server requires client certificate authentication.
-  key: fs.readFileSync(path.join(__dirname,directSSL,pfx_pem)),
-  cert: fs.readFileSync(path.join(__dirname,directSSL,cert_pem)),
+  key: fs.readFileSync(path.join(__dirname,directSSL,pfx2_pem)),
+  cert: fs.readFileSync(path.join(__dirname,directSSL,cert2_pem)),
   // Necessary only if the server uses a self-signed certificate.
   ca: 
     //fs.readFileSync(path.join(__dirname,directSSL,cert_alice1)),
@@ -67,7 +69,7 @@ const optionsWClient = {
 };
 
 // Create HTTPS server
-https.createServer(options, app).listen(PORT, 
+https.createServer(optionsWClient, app).listen(PORT, 
   function (req, res) {
       console.log(`Date->${new Date()} Server started at https://www.secure-server.edu:${PORT}`);
   }
