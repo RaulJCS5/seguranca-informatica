@@ -73,11 +73,11 @@ app.get('/'+CALLBACK, (req, resp) => {
         // AXIOS assumes by default that response type is JSON: https://github.com/axios/axios#request-config
         // Property response.data should have the JSON response according to schema described here: https://openid.net/specs/openid-connect-core-1_0.html#TokenResponse
 
-        console.log(response.data)
+        //console.log(response.data)
         // decode id_token from base64 encoding
         // note: method decode does not verify signature
         var jwt_payload = jwt.decode(response.data.id_token)
-        console.log(jwt_payload)
+        //console.log(jwt_payload)
 
         // a simple cookie example
         resp.cookie("DemoCookie", jwt_payload.email)
@@ -87,13 +87,31 @@ app.get('/'+CALLBACK, (req, resp) => {
             '<div> client app received access code = <code>' + response.data.access_token + '</code></div><br>' +
             '<div> id_token = <code>' + response.data.id_token + '</code></div><br>' +
             '<div> Hi <b>' + jwt_payload.email + '</b> </div><br>' +
-            'Go back to <a href="/">Home screen</a>'
+            'Go back to <a href="/">Home screen</a>'+
+            '<p><p>'+
+            '<a href="/addtask">Add tasks</a>'+
+            '<p><p>'+
+            '<a href="/viewtasks">View tasks</a>'
         );
       })
       .catch(function (error) {
         console.log(error)
         resp.send()
       });
+})
+
+app.get('/addtask', (req, resp) => { //addtask
+    resp.send(
+        '<div>Add task</code></div><br>' +
+        'Go back to <a href="/">Home screen</a>'
+    );
+})
+
+app.get('/viewtasks', (req, resp) => { //viewtasks
+    resp.send(
+        '<div>View task</code></div><br>' +
+        'Go back to <a href="/">Home screen</a>'
+    );
 })
 
 app.listen(port, (err) => {
