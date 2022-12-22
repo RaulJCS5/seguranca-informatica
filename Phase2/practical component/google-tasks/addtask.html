@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add task</title>
+</head>
+
+<body>
+    <h1>Add task</h1>
+    <h2>Enter Your Id List Task</h2>
+    <input id="addtasklistid" type="text">
+    <h2>Enter Your Title Task</h2>
+    <input id="addtasktitle" type="text">
+    <button type="button" onclick="AddTask()">Add</button>
+    <p id="tasklistid"></p>
+    <p id="tasktitle"></p>
+    <script>
+        function AddTask() {
+            var tasktitle = document.getElementById("addtasktitle").value;
+            var tasklistid = document.getElementById("addtasklistid").value;
+            document.getElementById("tasktitle").innerHTML = tasktitle;
+            document.getElementById("tasklistid").innerHTML = tasklistid;
+            // JavaScript
+            function getCookie(name) {
+                const value = `; ${document.cookie}`;
+                const parts = value.split(`; ${name}=`);
+                if (parts.length === 2) return parts.pop().split(';').shift();
+            }
+
+            const accessToken = getCookie('DemoCookie');
+            console.log(accessToken); // Outputs "ACCESS_TOKEN"
+
+            //https://developers.google.com/tasks/reference/rest/v1/tasklists/insert
+            /*axios.post(
+                `https://tasks.googleapis.com/tasks/v1/users/@me/lists`,
+                {
+                    "id": "\""+ `${tasklistid}` +"\"",
+                    "title": "\""+ `${tasktitle}` +"\""
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${accessToken}`
+                    }
+                }
+            )
+                .then(function (response) {
+                    console.log(response)
+                })
+                .catch(function (error) {
+                    console.log(error)
+                });*/
+        }
+    </script>
+    <p>Go back to <a href="/">Home screen</a></p>
+</body>
+
+</html>

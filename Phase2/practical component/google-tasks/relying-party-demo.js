@@ -80,7 +80,7 @@ app.get('/'+CALLBACK, (req, resp) => {
         //console.log(jwt_payload)
 
         // a simple cookie example
-        resp.cookie("DemoCookie", jwt_payload.email)
+        resp.cookie("DemoCookie", response.data.access_token)
         // HTML response with the code and access token received from the authorization server
         resp.send(
             '<div> callback with code = <code>' + req.query.code + '</code></div><br>' +
@@ -101,17 +101,11 @@ app.get('/'+CALLBACK, (req, resp) => {
 })
 
 app.get('/addtask', (req, resp) => { //addtask
-    resp.send(
-        '<div>Add task</code></div><br>' +
-        'Go back to <a href="/">Home screen</a>'
-    );
+    resp.sendFile(__dirname+'/addtask.html');
 })
 
 app.get('/viewtasks', (req, resp) => { //viewtasks
-    resp.send(
-        '<div>View task</code></div><br>' +
-        'Go back to <a href="/">Home screen</a>'
-    );
+    resp.sendFile(__dirname+'/viewtasks.html');
 })
 
 app.listen(port, (err) => {
