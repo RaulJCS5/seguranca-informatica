@@ -54,6 +54,8 @@ function addDays(days) {
     return result;
 }
 
+
+
 app.get('/' + CALLBACK, (req, resp) => {
     //
     // TODO: check if 'state' is correct for this session
@@ -79,11 +81,15 @@ app.get('/' + CALLBACK, (req, resp) => {
         .then(function (response) {
             // AXIOS assumes by default that response type is JSON: https://github.com/axios/axios#request-config
             // Property response.data should have the JSON response according to schema described here: https://openid.net/specs/openid-connect-core-1_0.html#TokenResponse
-
+            // ...
             //console.log(response.data)
             // decode id_token from base64 encoding
             // note: method decode does not verify signature
             var jwt_payload = jwt.decode(response.data.id_token)
+            const userEmail = jwt_payload.email;
+
+            // Set user information in the request object
+            req.user = { email: userEmail, role: 'premium' }; // Replace 'premium' with the actual user role based on your Casbin policies
             //console.log(jwt_payload)
 
             // cookie with access token
@@ -106,6 +112,8 @@ app.get('/' + CALLBACK, (req, resp) => {
                 '<div> Hi <b>' + jwt_payload.email + '</b> </div><br>' +
                 'Go back to <a href="/">Home screen</a>' +
                 '<p><p>' +
+                '<a href="/premium-route">Premium Route</a>' +
+                '<p><p>' +
                 '<a href="/addtask">Add tasks</a>' +
                 '<p><p>' +
                 '<a href="/viewtasks">View tasks</a>'
@@ -125,27 +133,23 @@ app.get('/viewtasks', (req, resp) => { //viewtasks
     resp.sendFile(__dirname + '/viewtasks.html');
 })
 
-const policyFile = 'path/to/your/policy_file.conf';
-const modelFile = 'path/to/your/model_file.conf';
+// Load the Casbin model and policies
+const modelFile = 'casbin-model.conf';
+const policyFile = 'casbin-policy.csv';
 
-// Create an instance of the Casbin Enforcer.
 async function createEnforcer() {
     const enforcer = await newEnforcer(modelFile, policyFile);
-
-    // Load policy rules for RBAC1 model
-    const rbac1Policy = `
-    p, admin, data, read
-    p, premium, data, read
-    p, premium, data, write
-    p, free, data, read
-  `;
-    enforcer.loadPolicyLine(rbac1Policy);
-
     return enforcer;
 }
 
 
 app.get('/premium-route', async (req, resp) => {
+    // Check if the user object exists and contains the 'role' property
+    console.log(req.user);
+    if (!req.user || !req.user.role) {
+        return resp.status(403).send('Authentication required.');
+    }
+
     // Check access for the premium route using Casbin Enforcer
     const enforcer = await createEnforcer();
     const { user } = req; // Assuming the user object has 'role' property

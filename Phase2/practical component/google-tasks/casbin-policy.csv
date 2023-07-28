@@ -1,0 +1,4 @@
+p, admin, data, read
+p, premium, data, read
+p, premium, data, write
+p, free, data, read
