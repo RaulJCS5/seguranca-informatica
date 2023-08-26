@@ -1,0 +1,56 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "SimpleHybrid",
+            "request": "launch",
+            "mainClass": "pt.isel.leic.seginf.SimpleHybrid",
+            "projectName": "jca_app"
+        },
+        {
+            "type": "java",
+            "name": "HybridScheme",
+            "request": "launch",
+            "mainClass": "pt.isel.leic.seginf.HybridScheme",
+            "projectName": "jca_app",
+            "args": [
+                "-enc"
+            ]
+        },
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "HashFunctions",
+            "request": "launch",
+            "mainClass": "pt.isel.leic.seginf.HashFunctions",
+            "projectName": "jca_app",
+            "args": [
+                "C:\\Users\\raulj\\Desktop\\Época_Especial_SemestreVerão2023\\SegInf\\primeiro_trabalho_2023\\jca_app\\src\\main\\resources\\certificates-and-keys\\cert-int\\CA1-int.cer",
+                "MD5"
+            ]
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "pt.isel.leic.seginf.Main",
+            "projectName": "jca_app"
+        },
+        {
+            "type": "java",
+            "name": "ReadFile",
+            "request": "launch",
+            "mainClass": "pt.isel.leic.seginf.ReadFile",
+            "projectName": "jca_app"
+        }
+    ]
+}
