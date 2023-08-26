@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.file.Files;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.KeyPair;
@@ -43,12 +44,14 @@ public class HybridScheme {
             NoSuchAlgorithmException, NoSuchProviderException, SignatureException, NoSuchPaddingException,
             InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, IOException,
             KeyStoreException, UnrecoverableKeyException {
-        if (args.length != 1) {
-            System.out.println("Usage: java HybridScheme <-enc|-dec>");
-            System.exit(1);
-        }
         String cipher = args[0];
         if (cipher.equals("-enc")) {
+            if (args.length != 2){
+                System.out.println("Usage: java HybridScheme <-enc|-dec> <file>");
+                System.exit(1);
+            }
+            String workingDir = System.getProperty("user.dir");
+            String file = workingDir+"\\"+args[1];
             // Load the certificate from resource file
             ClassLoader classLoader = HybridScheme.class.getClassLoader();
             InputStream certiInputStream = classLoader.getResourceAsStream("certificates-and-keys/cert-int/CA1-int.cer");
@@ -66,8 +69,8 @@ public class HybridScheme {
             KeyGenerator keyGen = KeyGenerator.getInstance("AES");
             keyGen.init(256);
             SecretKey secretKey = keyGen.generateKey();
-            // Simulated data to be encrypted
-            byte[] data = "Hello, World!\n".getBytes(); // Read data to be encrypted
+            // File to be encrypted
+            byte[] data = Files.readAllBytes(new File(file).toPath());
 
             // Encrypt the symmetric key with the public key
             Cipher cipher1 = Cipher.getInstance("AES/CBC/PKCS5Padding");

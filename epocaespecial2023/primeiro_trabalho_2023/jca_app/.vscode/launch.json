@@ -18,7 +18,8 @@
             "mainClass": "pt.isel.leic.seginf.HybridScheme",
             "projectName": "jca_app",
             "args": [
-                "-enc"
+                "-enc",
+                "data.txt",
             ]
         },
         {
