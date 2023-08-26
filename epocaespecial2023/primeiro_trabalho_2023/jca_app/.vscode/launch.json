@@ -18,8 +18,11 @@
             "mainClass": "pt.isel.leic.seginf.HybridScheme",
             "projectName": "jca_app",
             "args": [
-                "-enc",
-                "data.txt",
+                "-dec",
+                "encrypted_data.txt",
+                "encrypted_key.txt",
+                "encrypted_iv.txt",
+                "Alice_1.pfx",
             ]
         },
         {

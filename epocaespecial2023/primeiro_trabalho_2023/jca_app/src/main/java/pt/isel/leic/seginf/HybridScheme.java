@@ -47,14 +47,14 @@ public class HybridScheme {
         String cipher = args[0];
         if (cipher.equals("-enc")) {
             if (args.length != 2){
-                System.out.println("Usage: java HybridScheme <-enc|-dec> <file>");
+                System.out.println("Usage: java HybridScheme <-enc> <file>");
                 System.exit(1);
             }
             String workingDir = System.getProperty("user.dir");
             String file = workingDir+"\\"+args[1];
             // Load the certificate from resource file
             ClassLoader classLoader = HybridScheme.class.getClassLoader();
-            InputStream certiInputStream = classLoader.getResourceAsStream("certificates-and-keys/cert-int/CA1-int.cer");
+            InputStream certiInputStream = classLoader.getResourceAsStream("certificates-and-keys/pfx/end-entities/Alice_1.cer");
             if (certiInputStream == null) {
                 throw new FileNotFoundException("Certificate file not found");
             }
@@ -98,10 +98,15 @@ public class HybridScheme {
             }
             certiInputStream.close();
         } else if (cipher.equals("-dec")) {
-            String encrypted_data = "encrypted_data.txt";
-            String encrypted_key = "encrypted_key.txt";
-            String encrypted_iv = "encrypted_iv.txt";
-            String keystore = "keystore.pfx";
+            if (args.length != 5){
+                System.out.println("Usage: java HybridScheme <-dec> <file> <file> <file> <file>");
+                System.exit(1);
+            }
+            String workingDir = System.getProperty("user.dir");
+            String encrypted_data = workingDir+"\\"+args[1];
+            String encrypted_key = workingDir+"\\"+args[2];
+            String encrypted_iv = workingDir+"\\"+args[3];
+            String keystore = workingDir+"\\"+args[4];
 
             // Read encrypted data and encrypted key from separate Base64 files
             FileInputStream encryptedDataInputStream = new FileInputStream(encrypted_data); // Read encrypted data
