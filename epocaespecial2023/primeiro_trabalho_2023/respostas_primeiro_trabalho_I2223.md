@@ -2,11 +2,12 @@
 
 - 1.Considere um novo modo de operação definido por:
 
-    - Seja _x = x1,...,xL_ a divisão nos blocos _xi_ do texto em claro _x_.
+  - Seja _x = x1,...,xL_ a divisão nos blocos _xi_ do texto em claro _x_.
     - _RV_ é um vetor aleatório, com dimensão do bloco, gerado por cada texto em claro _x_
     - Seja _yi = E(k)(xi __XOR__ RV)_, para _i=1,...,L_, onde _E_ é a operação de cifra, _k_ é a chave da cifra, __XOR__ denota o ou-exclusivo bit a bit
 
     1.1. Defina o algoritmo de decifra para este modo de operação.
+
     ```
     cifra = yi = E(k)(xi XOR RV)
 
@@ -23,7 +24,8 @@
     2. E(yi XOR RV) denota a operação de decifra (operação inversa da cifra) aplicada ao bloco intermediário.
     3. D(k) representa a operação de decifra com a chave k, que transforma o bloco intermediário de volta para o bloco de texto em claro original
     ```
-    1.2. Compare este modo de operação com o modo CBC quanto a: 
+
+    1.2. Compare este modo de operação com o modo CBC quanto a:
     - possibilidade de padrões no texto em claro serem evidentes no texto cifrado
     - capacidade de paralelizar a cifra
 
@@ -39,11 +41,13 @@
     ```
 
 ---
+
 - 2.O RFC 4880, "OpenPGP Message Format", especifica a cifra de mensagens (denominadas objetos) como uma combinação entre esquemas assimétricos e simétricos:
 
 ``` En
 [...] first the object is encrypted using a symmetric encryption algorithm. Each symmetric key is used only once, for a single object. A new "session key" is generated as a random number for each object (sometimes referred to as a session). Since it is used only once, the "session key" is bound to the message and transmitted with it. To protect the key, it is encrypted with the receiver's public key. [...]
 ```
+
 ``` Pt
 primeiro o objeto é cifrado utilizando um algoritmo de cifra simétrica. Cada chave simétrica é usada apenas uma vez, para um único objeto. Uma nova "session key" é gerada como um numero aleatório para cada objeto (por vezes referida como session). Desde que seja utilizado apenas uma vez, a "session key" é unida à mensagem e transmitida a partir dela. Para proteger a chave, ela é cifrada com a chave pública do recetor(o que envia a mensagem)
 ```
@@ -70,12 +74,11 @@ Esta abordagem garante tanto a eficiência da criptografia simétrica na cifra d
 
 - 3.A engine classe Signature da JCA contém, entre outros, os seguintes métodos:
 
-    - _void initSign(PrivateKey privateKey)_
-    - _void initVerify(PublicKey publicKey)_
-    - _void update(byte[] data)_
-    - _byte[] sign()_
-    - _boolean verify(byte[] signature)_
-
+  - _void initSign(PrivateKey privateKey)_
+  - _void initVerify(PublicKey publicKey)_
+  - _void update(byte[] data)_
+  - _byte[] sign()_
+  - _boolean verify(byte[] signature)_
 
 - 3.1.Explique sucintamente o processamento realizado internamente no método __sign__ com o objetivo de fazer a assinatura. Pode usar na explicação os métodos referidos que entenda relevantes.
 
@@ -100,6 +103,7 @@ As assinaturas digitais tem como objetivo garantir a autenticidade e integridade
 - 4.Considere os certificados digitais X.509 e as infraestruturas de chave pública:
 
 - 4.1 Em que situações é que a chave necessária para validar a assinatura de um certificado não está presente nesse certificado?
+
 ```
 A chave necessária para validar a assinatura de um certificado não está presente nesse certificado quando ocorre o uso de uma cadeia de certificação PKIX(Public Key Infrastructure for the Internet). A PKI és um sistema de confiança que permite a geração, distribuição, gestão e validação de certificados digitais.
 
@@ -129,7 +133,6 @@ Criar um MAC ajuda a garantir apenas que a mensagem original não foi alterada. 
 ```
 As assinaturas digitais oferecem não-repúdio, o que significa que o emissor não pode negar ter assinado o documento. A utilização de chaves Pública/Privada aproveitam o par, onde chave a chave privada é mantida em sigilo pelo emissor do certificado e a chave pública é divulgada para permitir a verificação das assinaturas. Isso permite que qualquer pessoa verifique a autenticidade do certificado sem precisar de uma chave secreta compartilhada, como seria o caso em esquemas MAC. A utilização de uma Cadeia de certificação, onde há uma Autoridade de Certificação de nível superior que emite certificados para entidades de níveis inferiores. As assinaturas digitais permitem a validação do certificado sem necessidade de um degredo compartilhado entre todas as entidades da cadeia.
 ```
-
 
 - 4.3Qual a diferença entre ficheiros .cer e ficheiros .pfx?
 
