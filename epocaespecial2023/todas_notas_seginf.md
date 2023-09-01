@@ -45,3 +45,32 @@
 - Além disso, uma empresa que mantém seus dados íntegros é uma empresa em que o cliente pode confiar.
 
 ## Disponibilidade
+
+- Para que um sistema de informação seja útil, é indispensável que os dados estejam disponíveis quando necessário. Portanto, a disponibilidade é outro dos quatro princípios da segurança da informação, que garante o acesso em tempo integral para usuários finais.
+
+- Para fazer isso, você precisa garantir a estabilidade e acesso permanente às informações dos sistemas por meio de processos de manutenção rápida, eliminação de falhas de software, atualizações contínuas e planos de gestão de crises.
+
+- Os sistemas são vulneráveis a desastres naturais, ataques, falta de energia e diversas outras ameaças à disponibilidade. Manter os sistemas seguros também significa garantir o máximo possível de segurança para que os dados estejam sempre disponíveis.
+
+### Porque é que a disponibilidade é importante?
+
+- Imagine a seguinte situação: você fez uma compra em uma ecommerce e, aós um tempo, precisa verificar essa compra novamente, seja para lembrar quando ela foi feita ou quanto foi pago no produto.
+
+- Se essa informação não estiver disponível, a empresa perde credibilidade e certamente vai se perguntar: "o que fizeram com meus dados?"
+
+- Dessa forma, a disponibilidade é um dos princípios da segurança da informação mais simples, mas que tem grande importância, principalmente para o cliente.
+
+## Autenticidade
+
+- O princípio da autenticidade garante que as informações sejam provenientes de uma fonte confiável. Em outras palavras, confirma que os dados possuem legitimidade, não havendo manipulação ou intervenções externas, como terceiros se passando por colaboradores
+
+- __A autenticidade é o pilar que valida a autorização do usuário para acessar, transmitir e receber informações__, como logins, senhas ou até autenticações biométricas. Um sistema autêntico confirma a identidade dos usuários antes de liberar o acesso.
+
+- Um jeito simples de confirmar a autenticidade de um usuário é o Captcha, ou a autenticação de dois fatores
+
+### Porque é que a autenticidade é importante?
+
+- Se um sistema não confirmar a autenticidade de um usuário, se torna vulnerável a diversos tipos de ataques e falsificações, como pessoas mal intencionadas se passando por outras para roubar, vazar ou ter acesso a dados que não lhe pertencem
+
+- Tanto empresas quanto clientes se beneficiam de sistemas seguros e que tenham como base a autenticidade, um dos princípios da segurança da informação.
+
