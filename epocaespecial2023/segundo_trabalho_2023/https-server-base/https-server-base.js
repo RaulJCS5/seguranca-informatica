@@ -12,7 +12,7 @@ const app = express();
 app.get("/", function (req, res) {
     console.log(
         req.socket.remoteAddress
-        //+ ' ' + req.socket.getPeerCertificate().subject.CN
+        + ' ' + req.socket.getPeerCertificate().subject.CN
         + ' ' + req.method
         + ' ' + req.url);
     res.send("<html><body>Secure Hello World with node.js</body></html>");
@@ -21,11 +21,11 @@ app.get("/", function (req, res) {
 
 // configure TLS handshake
 const options = {
-    key: fs.readFileSync('<server private key PEM>'),
-    cert: fs.readFileSync('<server certificate PEM>'),
-    //ca: fs.readFileSync('<server trustbase PEM (root CA)>'), 
-    //requestCert: true, 
-    //rejectUnauthorized: true
+    key: fs.readFileSync('secure-server_pfx.pem'),
+    cert: fs.readFileSync('secure-server-certificate.pem'),
+    ca: [fs.readFileSync('CA1-int-certificate.pem'),fs.readFileSync('CA1-certificate.pem'),], 
+    requestCert: true, 
+    rejectUnauthorized: true
 };
 
 // Create HTTPS server
@@ -34,3 +34,11 @@ https.createServer(options, app).listen(PORT,
         console.log("Server started at port " + PORT);
     }
 );
+
+// Convert a DER file (.crt .cer .der) to PEM
+// openssl x509 -inform der -in secure-server.cer -out secure-server-certificate.pem
+// openssl x509 -inform der -in CA1-int.cer -out CA1-int-certificate.pem
+// openssl x509 -inform der -in CA1.cer -out CA1-certificate.pem
+
+// Convert a PKCS#12 file (.pfx .p12) containing a private key and certificates to PEM
+// openssl pkcs12 -in secure-server.pfx -out secure-server-private.pem -nodes
