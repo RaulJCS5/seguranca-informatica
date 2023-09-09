@@ -24,7 +24,7 @@ public class HashFunctions {
         /*
         // For testing purposes
         String inputData = "Hello, world!";
-        String inputFile = "C:\\Users\\raulj\\Desktop\\\u00C9poca_Especial_SemestreVer\u00E3o2023\\SegInf\\primeiro_trabalho_2023\\jca_app\\src\\main\\resources\\teste.txt";
+        String inputFile = "C:\Users\raulj\Desktop\epoca_especial_eemestreverao2023\SegInf\seginf-inv2223-private\epocaespecial2023\primeiro_trabalho_2023\jca_app\src\main\resources\teste.txt";
 
         System.out.println("Original Data: " + inputData);
         System.out.println("MD5 Hash: " + computeHashString(inputData, "MD5"));

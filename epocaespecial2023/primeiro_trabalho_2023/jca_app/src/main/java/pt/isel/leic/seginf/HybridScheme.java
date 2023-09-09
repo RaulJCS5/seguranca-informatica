@@ -44,6 +44,10 @@ public class HybridScheme {
             NoSuchAlgorithmException, NoSuchProviderException, SignatureException, NoSuchPaddingException,
             InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, IOException,
             KeyStoreException, UnrecoverableKeyException {
+        if (args.length == 0) {
+            System.out.println("Usage: java HybridScheme <-enc|-dec>");
+            System.exit(1);
+        }
         String cipher = args[0];
         if (cipher.equals("-enc")) {
             if (args.length != 2){

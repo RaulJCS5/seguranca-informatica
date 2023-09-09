@@ -97,7 +97,7 @@ Se em virtude de uma vulnerabilidade detetada na função de hash MD5 for comput
 
 Um atacante poderia criar uma mensagem maliciosa (mensagem B) e calcular uma assinatura válida para essa mensagem com a técnica de segunda pré-imagem. A assinatura seria baseada no hash MD5 da mensagem B, mas como o hash MD5 seria o mesmo de uma mensagem legítima (mensagem A), essa assinatura também seria válida para a mensagem A. Portanto, o atacante teria conseguido falsificar uma assinatura legítima para a mensagem A, fazendo parecer que a mensagem A foi assinada pelo remetente original.
 
-As assinaturas digitais tem como objetivo garantir a autenticidade e integridade das mensagens. Uma pessoa que verificasse a assinatura da mensagem A usando a chave pública correspondente à chave privada usada para gerar a assinatura, acreditaria que a mensagem A é autêntica e não foi alterada, quando, na realidade, ela poderia ter sido substituída por outra men
+As assinaturas digitais tem como objetivo garantir a autenticidade e integridade das mensagens. Uma pessoa que verificasse a assinatura da mensagem A usando a chave pública correspondente à chave privada usada para gerar a assinatura, acreditaria que a mensagem A é autêntica e não foi alterada, quando, na realidade, ela poderia ter sido substituída por outra mensagem
 ```
 
 - 4.Considere os certificados digitais X.509 e as infraestruturas de chave pública:
@@ -107,7 +107,9 @@ As assinaturas digitais tem como objetivo garantir a autenticidade e integridade
 ```
 A chave necessária para validar a assinatura de um certificado não está presente nesse certificado quando ocorre o uso de uma cadeia de certificação PKIX(Public Key Infrastructure for the Internet). A PKI és um sistema de confiança que permite a geração, distribuição, gestão e validação de certificados digitais.
 
-Dentro do PKIX existem duas chaves principais associadas a cada entidade que utilizam certificados digitais: a chave privada e a chave pública. A chave privada é mantida em segredo e é usada para assinar digitalmente documentos ou outros certificados, enquanto a chave pública é distribuída amplamente para permitir a verificação das assinaturas digitais
+Dentro do PKIX existem duas chaves principais associadas a cada entidade que utilizam certificados digitais: a chave privada e a chave pública. A chave privada é mantida em segredo e é usada para assinar digitalmente documentos ou outros certificados, enquanto a chave pública é distribuída amplamente para permitir a verificação das assinaturas digitais.
+
+Todos os certificados não auto-assinados não tem a chave (folha, cadeia...) incorporada no certificado
 ```
 
 - 4.2Porque motivo a proteção de integridade dos certificados X.509 não usa esquemas MAC(Message Authentication Code)?
@@ -137,9 +139,9 @@ As assinaturas digitais oferecem não-repúdio, o que significa que o emissor n�
 - 4.3Qual a diferença entre ficheiros .cer e ficheiros .pfx?
 
 ```
-O Windows usa a extensão .cer para um certificado X.509. Estes podem ser em "binário" (ASN.1 DER), ou pode ser codificado com Base-64 e ter um cabeçalho e rodapé aplicado (PEM). O Windows reconhecerá também. Para verificar a integridade de um certificado, você deve verificar a sua assinatura usando a chave pública do emissor que é, por sua vez, outro certificado.
+O Windows usa a extensão .cer para um certificado X.509. Estes podem ser em "binário" (ASN.1 DER), ou pode ser codificado com Base-64 e ter um cabeçalho e rodapé aplicado (PEM). O Windows reconhecerá também. Para verificar a integridade de um certificado, você deve verificar a sua assinatura usando a chave pública do emissor que é, por sua vez, outro certificado. Estes apenas contém a chave pública.
 
-O Windows usa .pfx para um arquivo PKCS #12. Esse arquivo pode conter uma variedade de informações criptográficas, incluindo certificados, cadeias de certificados, certificados de autoridade raiz e chaves particulares. Seu conteúdo pode ser protegido criptograficamente (com senhas) para manter as chaves privadas privadas e preservar a integridade dos certificados raiz.
+O Windows usa .pfx para um arquivo PKCS #12. Esse arquivo pode conter uma variedade de informações criptográficas, incluindo certificados, cadeias de certificados, certificados de autoridade raiz e chaves particulares. Seu conteúdo pode ser protegido criptograficamente (com senhas) para manter as chaves privadas privadas e preservar a integridade dos certificados raiz. Estes contém ambas as chaves públicas e privada para um certo certificado.
 ```
 
 Usando a biblioteca JCA, realize em Java uma aplicação para geração de hashs criptográficos de ficheiros. A aplicação recebe na linha de comandos i) o nome da função de hash e ii) o ficheiro para o qual se quer obter o hash. O valor de hash é enviado para o standard output.
