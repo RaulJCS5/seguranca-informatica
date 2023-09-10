@@ -1,0 +1,12 @@
+{
+  "name": "google-task-app",
+  "version": "1.0.0",
+  "description": "Web application to see and add tasks from a Google user through Google Tasks API",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "RaulJCS5",
+  "license": "ISC"
+}
