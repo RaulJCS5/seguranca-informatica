@@ -34,7 +34,7 @@ app.use(bodyParser.json());
 
 function loginHome() {
     return (req, resp) => {
-        resp.send('<a href=/login>Use Google Account</a>')
+        resp.sendFile(__dirname + "/pages/usegoogleaccount.html");
     }
 }
 
@@ -117,8 +117,64 @@ function loginCallback() {
                             return index
                         })
                         var json_response = response.data
-                        let listHtml = json_response.items.map(item => `<div><a href = '/list/${item.id}'>${item.title}</a></div>`).join("<br></br>")
-                        resp.send(listHtml)
+                        const listHtml = json_response.items.map(item => `<div><a href="/list/${item.id}">${item.title}</a></div>`).join("<br></br>");
+
+                        // Set the Content-Type header to indicate that the response is HTML
+                        resp.setHeader('Content-Type', 'text/html');
+
+                        // Send the HTML content with CSS styles as a response
+                        resp.send(`
+                            <!DOCTYPE html>
+                            <html lang="en">
+                            <head>
+                                <meta charset="UTF-8">
+                                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                                <title>Task List</title>
+                                <style>
+                                    body {
+                                        font-family: Arial, sans-serif;
+                                        background-color: #f5f5f5;
+                                        text-align: center;
+                                        margin: 0;
+                                        padding: 0;
+                                    }
+                                    .container {
+                                        background-color: #ffffff;
+                                        border-radius: 8px;
+                                        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                                        padding: 20px;
+                                        max-width: 400px;
+                                        margin: 20px auto;
+                                    }
+                                    h1 {
+                                        color: #333333;
+                                    }
+                                    p {
+                                        color: #333333;
+                                    }
+                                    a {
+                                        text-decoration: none;
+                                        color: #0078d4;
+                                        font-weight: bold;
+                                    }
+                                    a:hover {
+                                        text-decoration: underline;
+                                    }
+                                    .task-item {
+                                        margin: 10px 0;
+                                    }
+                                </style>
+                            </head>
+                            <body>
+                                <div class="container">
+                                    <h1>Task List</h1>
+                                    <div class="task-list">
+                                        ${listHtml}
+                                    </div>
+                                </div>
+                            </body>
+                            </html>
+                        `);
                     })
                     .catch(function (error) {
                         console.log(error)
@@ -142,25 +198,103 @@ function getTasksList() {
                     { headers: { Authorization: `Bearer ${index.token}` } }
                 )
                     .then(function (response) {
-                        var json_response = response.data
-                        let listHtml = json_response.items.map(
-                            item =>
-                                `<div>
-                                <h1 href = '/task/${item.id}'>${item.title}</h1>
-                                    <p>${item.notes ? item.notes : "There's no notes for this task"}</p>
-                            </div>`).join("<br></br>")
+                        const json_response = response.data;
+                        const listHtml = json_response.items.map(item => `
+        <div class="task-item">
+            <h1><a href="/task/${item.id}">${item.title}</a></h1>
+            <p>${item.notes ? item.notes : "There's no notes for this task"}</p>
+        </div>`).join("<br></br>");
 
-                        listHtml +=
-                            "<br></br>" +
-                            "<h1>Create a new task</h1>" +
-                            "<form method= 'post'>" +
-                            "<label for='title'>Title:</label><br>" +
-                            "<input type='text' id='title' name='title' value=''><br>" +
-                            "<label for='notes'>Notes:</label><br>" +
-                            "<input type='text' id='notes' name='notes' value=''><br><br>" +
-                            "<input type='submit' value='Submit'>" +
-                            "</form>"
-                        resp.send(listHtml)
+                        // Set the Content-Type header to indicate that the response is HTML
+                        resp.setHeader('Content-Type', 'text/html');
+
+                        // Send the HTML content with CSS styles as a response
+                        resp.send(`
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Task Details</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    background-color: #f5f5f5;
+                    text-align: center;
+                    margin: 0;
+                    padding: 0;
+                }
+                .container {
+                    background-color: #ffffff;
+                    border-radius: 8px;
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                    padding: 20px;
+                    max-width: 400px;
+                    margin: 20px auto;
+                }
+                h1 {
+                    color: #333333;
+                }
+                p {
+                    color: #333333;
+                }
+                a {
+                    text-decoration: none;
+                    color: #0078d4;
+                    font-weight: bold;
+                }
+                a:hover {
+                    text-decoration: underline;
+                }
+                .task-item {
+                    margin: 10px 0;
+                }
+                form {
+                    margin-top: 20px;
+                    padding: 10px;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                    background-color: #f9f9f9;
+                }
+                label {
+                    display: block;
+                    font-weight: bold;
+                    margin-bottom: 5px;
+                }
+                input[type="text"] {
+                    width: 100%;
+                    padding: 5px;
+                    margin-bottom: 10px;
+                    border: 1px solid #ccc;
+                    border-radius: 3px;
+                }
+                input[type="submit"] {
+                    background-color: #0078d4;
+                    color: white;
+                    border: none;
+                    padding: 8px 16px;
+                    border-radius: 5px;
+                    cursor: pointer;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <h1>Task Details</h1>
+                ${listHtml}
+                <br></br>
+                <h1>Create a new task</h1>
+                <form method="post">
+                    <label for="title">Title:</label><br>
+                    <input type="text" id="title" name="title" value=""><br>
+                    <label for="notes">Notes:</label><br>
+                    <input type="text" id="notes" name="notes" value=""><br><br>
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+        </body>
+        </html>
+    `);
                     })
                     .catch(function (error) {
                         console.log(error)

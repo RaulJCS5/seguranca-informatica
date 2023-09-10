@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unauthorized Access</title>
+    <title>Task List</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -24,7 +24,7 @@
         }
 
         h1 {
-            color: #ff5757;
+            color: #333333;
         }
 
         p {
@@ -40,16 +40,20 @@
         a:hover {
             text-decoration: underline;
         }
+
+        .task-item {
+            margin: 10px 0;
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h1>Unauthorized Access</h1>
-        <p>You do not have permission to access this page.</p>
-
-        <p><a href="/">Go back to Home</a></p>
-        <p><a href="/login">Login</a></p>
+        <h1>Task List</h1>
+        <div class="task-list">
+            <!-- This is where your task items will be dynamically inserted -->
+            ${listHtml}
+        </div>
     </div>
 </body>
 
