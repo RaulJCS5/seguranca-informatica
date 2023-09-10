@@ -1,0 +1,7 @@
+p, free, tasks, read
+p, premium, tasks, read
+p, premium, tasks, write
+g, admin, free
+g, admin, premium
+
+g, rauljcsantos@gmail.com, premium

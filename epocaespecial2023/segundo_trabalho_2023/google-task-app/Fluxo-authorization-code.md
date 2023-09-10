@@ -28,3 +28,7 @@ Browser                 Client (app web)                Authorization server Ex:
 |                       |                               |
 |                       |                               |
 ```
+
+[Casbin github tips](https://github.com/casbin/pycasbin/blob/master/README.md)
+
+[Casbin and access control](https://articles.wesionary.team/understanding-casbin-with-different-access-control-model-configurations-faebc60f6da5)

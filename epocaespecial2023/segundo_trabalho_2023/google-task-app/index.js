@@ -2,7 +2,6 @@ const express = require('express')
 const fs = require('fs')
 const path = 'client_secret_972752476658-af5c2bsg7gplk8hl0214vulg8uju8gnr.apps.googleusercontent.com.json'
 var data = JSON.parse(fs.readFileSync(path, 'utf8'));
-console.log(data);
 require('dotenv').config();
 const crypto = require('crypto')
 const cookieParser = require('cookie-parser');
@@ -13,6 +12,8 @@ const FormData = require('form-data');// more info at:
 const jwt = require('jsonwebtoken');
 const { url } = require('inspector');
 const bodyParser = require('body-parser'); // Import body-parser
+
+const { init, isAllowed } = require('./casbinloader.js');
 
 const port = 3001
 const STATE_STORAGE = []
@@ -71,7 +72,7 @@ function loginCallback() {
         // TODO: check if 'state' is correct for this session
         //
 
-        console.log('making request to token endpoint')
+        //console.log('making request to token endpoint')
         // content-type: application/x-www-form-urlencoded (URL-Encoded Forms)
         const form = new FormData();
         form.append('code', req.query.code);
@@ -98,7 +99,7 @@ function loginCallback() {
 
                 const access_token = response.data.access_token
 
-                console.log(access_token)
+                //console.log(access_token)
 
                 axios.get(
                     // token endpoint
@@ -214,6 +215,26 @@ function authorizationMiddleware(req, resp, next) {
     }
 }
 
+const casbinRBAC = (req, resp, next) => {
+    STATE_STORAGE.map(index => {
+        if (index.state == req.cookies.AuthCookie) {
+            init().then((enforcer) => {
+                isAllowed(enforcer, index.email, req.params.id, 'read').then((result) => {
+                    if (result.allowed) {
+                        console.log("next")
+                        next()
+                    } else {
+                        console.log("redirect for error")
+                        resp.redirect('/unauthorized')
+                    }
+                })
+            })
+        }
+    }
+    )
+}
+
+
 app.get('/', loginHome())
 
 // More information at:
@@ -224,15 +245,19 @@ app.get('/login', loginRedirect())
 
 app.get('/' + CALLBACK, loginCallback())
 
-app.get('/list/:id',authorizationMiddleware , getTasksList())
+app.get('/list/:id', authorizationMiddleware, casbinRBAC, getTasksList())
 
 app.get('/error', (req, resp) => {
     // Send the error.html file as the response
     resp.sendFile(__dirname + "/pages/error.html");
 });
 
-app.post('/list/:id',authorizationMiddleware , postTasksList())
+app.post('/list/:id', authorizationMiddleware, casbinRBAC, postTasksList())
 
+app.get('/unauthorized', (req, resp) => {
+    // Send the unauthorized.html file as the response
+    resp.sendFile(__dirname + "/pages/unauthorized.html");
+});
 
 app.listen(port, (err) => {
     if (err) {
