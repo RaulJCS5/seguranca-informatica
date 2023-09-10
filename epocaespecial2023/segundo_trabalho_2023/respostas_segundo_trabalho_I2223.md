@@ -43,7 +43,7 @@ Devido a um erro de programação, a informação sobre os utilizadores, hashs e
     b) Que alterações propõe para evitar o ataque anterior?
 
     ```text
-    Para evitar o ataque anterior seria importante implementar práticas de segurança fortes, incluindo proteger a integridade dos dados dos cookies, garantir uma gestão segura de sessões, implementar mecanismos de autenticação adequados e monitorizar regularmente o aplicativo em busca de vulnerabilidades. 
+    Para evitar o ataque anterior seria importante implementar práticas de segurança fortes, incluindo proteger a integridade dos dados dos cookies, garantir uma gestão segura de sessões, implementar mecanismos de autenticação adequados e monitorizar regularmente o aplicativo em busca de vulnerabilidades. Um mecanismo de implementação seria guardar nesse cookie os ID's de sessão gerados pelo servidor, ou seja, o ID gerado aquando do log in, sempre que houvesse um novo acesso à página seria verificado a existência de um SID válido, se fosse esse substituiria por um novo.
     ```
 
 4. Considere a norma OAuth 2.0 e OpenID Connect no fluxo authorization code grant:
@@ -57,7 +57,7 @@ Devido a um erro de programação, a informação sobre os utilizadores, hashs e
     b) Em que situações o cliente e o servidor de autorização comunicam indiretamente através do browser do dono de recursos?
 
     ```text
-    As situações em que o cliente e o servidor de autorização comunicam indiretamente através do browser do dono de recursos é no redirecionamento da página Login, por exemplo quando um utilizador tenta acessar um recurso protegido por uma aplicação cliente e não está autenticado, a aplicação cliente redireciona o utilizador para o servidor de autorização. Quando existe consentimento após a autenticação bem sucedida com servidor de autorização que mostra uma tela de consentimento no browser do dono de recursos.
+    As situações em que o cliente e o servidor de autorização comunicam indiretamente através do browser do dono de recursos é no redirecionamento da página Login, por exemplo quando um utilizador tenta acessar um recurso protegido por uma aplicação cliente e não está autenticado, a aplicação cliente redireciona o utilizador para o servidor de autorização para autorizar o acesso do cliente aos seus recursos. O servidor de autorização redireciona o dono de recursos de volta para o cliente passando o código de acesso autorização (Access token, Refresh token, ID token) como parâmetro na URL de redirecionamento
     ```
 
     c) Qual a diferença entre o access_token e o id_token?
