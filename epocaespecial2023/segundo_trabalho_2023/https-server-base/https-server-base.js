@@ -23,7 +23,7 @@ app.get("/", function (req, res) {
 const options = {
     key: fs.readFileSync('secure-server_pfx.pem'),
     cert: fs.readFileSync('secure-server-certificate.pem'),
-    ca: [fs.readFileSync('CA1-int-certificate.pem'),fs.readFileSync('CA1-certificate.pem'),], 
+    //ca: [fs.readFileSync('CA1-int-certificate.pem'),fs.readFileSync('CA1-certificate.pem'),], 
     requestCert: true, 
     rejectUnauthorized: true
 };
@@ -31,7 +31,7 @@ const options = {
 // Create HTTPS server
 https.createServer(options, app).listen(PORT, 
     function (req, res) {
-        console.log("Server started at port " + PORT);
+        console.log("Server started at port " + PORT + " https://www.secure-server.edu:4433/");
     }
 );
 
@@ -42,3 +42,7 @@ https.createServer(options, app).listen(PORT,
 
 // Convert a PKCS#12 file (.pfx .p12) containing a private key and certificates to PEM
 // openssl pkcs12 -in secure-server.pfx -out secure-server-private.pem -nodes
+
+// openssl x509 -in secure-server-certificate.pem -noout -dates
+// notBefore=Oct 25 08:04:10 2022 GMT
+// notAfter=Apr 23 08:04:10 2023 GMT
