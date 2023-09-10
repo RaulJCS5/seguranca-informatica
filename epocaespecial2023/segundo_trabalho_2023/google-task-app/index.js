@@ -215,11 +215,32 @@ function authorizationMiddleware(req, resp, next) {
     }
 }
 
+function filterMethodToAction(method) {
+    switch (method) {
+        case "GET":
+            return "read"
+        case "POST":
+            return "write"
+        case "PUT":
+            return "update"
+        case "DELETE":
+            return "delete"
+        default:
+            return "read"
+    }
+}
+
 const casbinRBAC = (req, resp, next) => {
     STATE_STORAGE.map(index => {
         if (index.state == req.cookies.AuthCookie) {
             init().then((enforcer) => {
-                isAllowed(enforcer, index.email, req.params.id, 'read').then((result) => {
+                const userEmail = index.email;
+                const resourceId = req.params.id;
+                const requestedAction = filterMethodToAction(req.method);
+
+                console.log(userEmail, resourceId, requestedAction)
+
+                isAllowed(enforcer, userEmail, resourceId, requestedAction).then((result) => {
                     if (result.allowed) {
                         console.log("next")
                         next()

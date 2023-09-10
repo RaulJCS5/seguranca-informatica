@@ -28,14 +28,14 @@ async function main() {
   // Save the policy back to file.
   // await enforcer.savePolicy();
   // Check the permission.
-  const result = await isAllowed(enforcer, 'alice', 'data1', 'read');
+  const result = await isAllowed(enforcer, 'rauljcsantos@gmail.com', 'data1', 'read');
   console.log(result);
 }
-
+/*
 main().then(() => {
   console.log('Finished');
 }).catch((err) => {
   console.log(err);
-});
+});*/
 
 module.exports = { init, isAllowed };
