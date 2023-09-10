@@ -12,6 +12,7 @@ const FormData = require('form-data');// more info at:
 // https://jwt.io/#libraries
 const jwt = require('jsonwebtoken');
 const { url } = require('inspector');
+const bodyParser = require('body-parser'); // Import body-parser
 
 const port = 3001
 const STATE_STORAGE = []
@@ -26,6 +27,9 @@ const CALLBACK = 'callback-tasks-ee2223'
 const app = express()
 app.use(cookieParser());
 
+// Add bodyParser middleware to parse request bodies
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 function loginHome() {
     return (req, resp) => {
@@ -117,14 +121,12 @@ function loginCallback() {
                     })
                     .catch(function (error) {
                         console.log(error)
-                        resp.send()
+                        resp.redirect('/error')
                     });
-
-
             })
             .catch(function (error) {
                 console.log(error)
-                resp.send()
+                resp.redirect('/error')
             });
     }
 }
@@ -141,16 +143,16 @@ function getTasksList() {
                     .then(function (response) {
                         var json_response = response.data
                         let listHtml = json_response.items.map(
-                            item => 
-                            `<div>
+                            item =>
+                                `<div>
                                 <h1 href = '/task/${item.id}'>${item.title}</h1>
                                     <p>${item.notes ? item.notes : "There's no notes for this task"}</p>
                             </div>`).join("<br></br>")
-                        
-                        listHtml += 
-                        "<br></br>"+
-                        "<h1>Create a new task</h1>"+
-                        "<form method= 'post'>" +
+
+                        listHtml +=
+                            "<br></br>" +
+                            "<h1>Create a new task</h1>" +
+                            "<form method= 'post'>" +
                             "<label for='title'>Title:</label><br>" +
                             "<input type='text' id='title' name='title' value=''><br>" +
                             "<label for='notes'>Notes:</label><br>" +
@@ -161,8 +163,38 @@ function getTasksList() {
                     })
                     .catch(function (error) {
                         console.log(error)
-                        resp.send()
+                        resp.redirect('/error')
                     });
+            }
+        })
+    }
+}
+
+function postTasksList() {
+    return (req, resp) => {
+        STATE_STORAGE.map(index => {
+            if (index.state == req.cookies.AuthCookie) {
+                const access_token = index.token
+                //console.log(req)
+                const taskData = {
+                    title: req.body.title,
+                    notes: req.body.notes
+                };
+
+                const url = `https://tasks.googleapis.com/tasks/v1/lists/${req.params.id}/tasks`;
+                axios.post(url, taskData, {
+                    headers: {
+                        Authorization: `Bearer ${access_token}`,
+                        'Content-Type': 'application/json'
+                    },
+                }).then(function (response) {
+                    resp.redirect(`/list/${req.params.id}`)
+                })
+                    .catch(function (error) {
+                        console.log(error)
+                        resp.redirect('/error')
+                    });
+
             }
         })
     }
@@ -179,6 +211,14 @@ app.get('/login', loginRedirect())
 app.get('/' + CALLBACK, loginCallback())
 
 app.get('/list/:id', getTasksList())
+
+app.get('/error', (req, resp) => {
+    // Send the error.html file as the response
+    resp.sendFile(__dirname + "/pages/error.html");
+});
+
+app.post('/list/:id', postTasksList())
+
 
 app.listen(port, (err) => {
     if (err) {
