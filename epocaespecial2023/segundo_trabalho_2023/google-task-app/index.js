@@ -1,4 +1,8 @@
 const express = require('express')
+const fs = require('fs')
+const path = 'client_secret_972752476658-af5c2bsg7gplk8hl0214vulg8uju8gnr.apps.googleusercontent.com.json'
+var data = JSON.parse(fs.readFileSync(path, 'utf8'));
+console.log(data);
 const cookieParser = require('cookie-parser');
 const axios = require('axios');
 const FormData = require('form-data');// more info at:
@@ -9,10 +13,10 @@ const jwt = require('jsonwebtoken');
 const port = 3001
 
 // system variables where Client credentials are stored
-const CLIENT_ID = process.env.CLIENT_ID
-const CLIENT_SECRET = process.env.CLIENT_SECRET
+const CLIENT_ID = data.web.client_id
+const CLIENT_SECRET = data.web.client_secret
 // callback URL configured during Client registration in OIDC provider
-const CALLBACK = 'callback'
+const CALLBACK = 'callback-tasks-ee2223'
 
 const app = express()
 app.use(cookieParser());
@@ -100,5 +104,5 @@ app.listen(port, (err) => {
     if (err) {
         return console.log('something bad happened', err)
     }
-    console.log(`server is listening on ${port}`)
+    console.log(`server is listening on http://localhost:${port}/`)
 })
