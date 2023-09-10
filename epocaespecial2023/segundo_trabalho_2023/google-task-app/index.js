@@ -13,7 +13,7 @@ const jwt = require('jsonwebtoken');
 const { url } = require('inspector');
 const bodyParser = require('body-parser'); // Import body-parser
 
-const { init, isAllowed } = require('./casbinloader.js');
+const { initEnforce, isAllowed } = require('./casbinloader.js');
 
 const port = 3001
 const STATE_STORAGE = []
@@ -231,28 +231,26 @@ function filterMethodToAction(method) {
 }
 
 const casbinRBAC = (req, resp, next) => {
-    STATE_STORAGE.map(index => {
-        if (index.state == req.cookies.AuthCookie) {
-            init().then((enforcer) => {
-                const userEmail = index.email;
-                const resourceId = req.params.id;
-                const requestedAction = filterMethodToAction(req.method);
+    if (req.cookies.AuthCookie) {
+        STATE_STORAGE.map(index => {
+            if (index.state == req.cookies.AuthCookie) {
+                const userEmail = index.email
+                const { path: resourceId } = req;
+                const requestedAction = filterMethodToAction(req.method)
 
-                console.log(userEmail, resourceId, requestedAction)
-
-                isAllowed(enforcer, userEmail, resourceId, requestedAction).then((result) => {
-                    if (result.allowed) {
-                        console.log("next")
-                        next()
-                    } else {
-                        console.log("redirect for error")
-                        resp.redirect('/unauthorized')
-                    }
-                })
-            })
-        }
+                initEnforce(userEmail, resourceId, requestedAction)
+                    .then(allowed => {
+                        isAllowed(allowed)
+                        if (allowed.res) {
+                            next()
+                        }
+                        else {
+                            resp.redirect('/unauthorized')
+                        }
+                    })
+            }
+        })
     }
-    )
 }
 
 

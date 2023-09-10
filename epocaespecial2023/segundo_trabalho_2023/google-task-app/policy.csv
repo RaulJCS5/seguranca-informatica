@@ -1,6 +1,6 @@
-p, free, tasks, read
-p, premium, tasks, read
-p, premium, tasks, write
+p, free, /list/*, read
+p, premium, /list/*, read
+p, premium, /list/*, write
 g, admin, free
 g, admin, premium
 
