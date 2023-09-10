@@ -200,6 +200,20 @@ function postTasksList() {
     }
 }
 
+function authorizationMiddleware(req, resp, next) {
+    if (req.cookies.AuthCookie) {
+        STATE_STORAGE.map(index => {
+            if (index.state == req.cookies.AuthCookie) {
+                console.log("next")
+                next()
+            }
+        })
+    } else {
+        console.log("redirect for login")
+        resp.redirect('/login')
+    }
+}
+
 app.get('/', loginHome())
 
 // More information at:
@@ -210,14 +224,14 @@ app.get('/login', loginRedirect())
 
 app.get('/' + CALLBACK, loginCallback())
 
-app.get('/list/:id', getTasksList())
+app.get('/list/:id',authorizationMiddleware , getTasksList())
 
 app.get('/error', (req, resp) => {
     // Send the error.html file as the response
     resp.sendFile(__dirname + "/pages/error.html");
 });
 
-app.post('/list/:id', postTasksList())
+app.post('/list/:id',authorizationMiddleware , postTasksList())
 
 
 app.listen(port, (err) => {
