@@ -1,7 +1,7 @@
 const express = require('express')
 const fs = require('fs')
-const path = 'client_secret_972752476658-af5c2bsg7gplk8hl0214vulg8uju8gnr.apps.googleusercontent.com.json'
-var data = JSON.parse(fs.readFileSync(path, 'utf8'));
+//const path = 'client_secret_972752476658-af5c2bsg7gplk8hl0214vulg8uju8gnr.apps.googleusercontent.com.json'
+//var data = JSON.parse(fs.readFileSync(path, 'utf8'));
 require('dotenv').config();
 const crypto = require('crypto')
 const cookieParser = require('cookie-parser');
@@ -16,7 +16,7 @@ const bodyParser = require('body-parser'); // Import body-parser
 const { initEnforce, isAllowed } = require('./casbinloader.js');
 
 const port = 3001
-const STATE_STORAGE = []
+var STATE_STORAGE = []
 
 // system variables where Client credentials are stored
 // https://www.npmjs.com/package/dotenv npm i dotenv
@@ -171,6 +171,12 @@ function loginCallback() {
                                     <div class="task-list">
                                         ${listHtml}
                                     </div>
+                                    <br></br>
+                                    <a href="/">Home</a>
+                                    <br></br>
+                                    <a href="/login">Login</a>
+                                    <br></br>
+                                    <a href="/logout">Logout</a>
                                 </div>
                             </body>
                             </html>
@@ -291,6 +297,12 @@ function getTasksList() {
                     <input type="text" id="notes" name="notes" value=""><br><br>
                     <input type="submit" value="Submit">
                 </form>
+                <br></br>
+                <a href="/">Home</a>
+                <br></br>
+                <a href="/login">Login</a>
+                <br></br>
+                <a href="/logout">Logout</a>
             </div>
         </body>
         </html>
@@ -304,6 +316,15 @@ function getTasksList() {
         })
     }
 }
+function logout() {
+    return (req, resp) => {
+        STATE_STORAGE = STATE_STORAGE.filter(index => index.state != req.cookies.AuthCookie)
+        resp.clearCookie("AuthCookie")
+        // Clear token and email in STATE_STORAGE
+        resp.redirect('https://www.google.com/accounts/Logout')
+    };
+}
+
 
 function postTasksList() {
     return (req, resp) => {
@@ -411,6 +432,8 @@ app.get('/unauthorized', (req, resp) => {
     // Send the unauthorized.html file as the response
     resp.sendFile(__dirname + "/pages/unauthorized.html");
 });
+
+app.get('/logout', logout());
 
 app.listen(port, (err) => {
     if (err) {

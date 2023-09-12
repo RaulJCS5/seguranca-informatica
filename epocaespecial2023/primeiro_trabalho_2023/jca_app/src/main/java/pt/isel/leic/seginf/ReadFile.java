@@ -10,7 +10,9 @@ import java.util.Scanner;
 
 public class ReadFile {
     public static void main(String[] args) {
-        String filename = "C:\\Users\\raulj\\Desktop\\\u00C9poca_Especial_SemestreVer\u00E3o2023\\SegInf\\primeiro_trabalho_2023\\jca_app\\src\\main\\resources\\teste.txt";
+        String teste = "teste.txt";
+        ClassLoader classLoader = ReadFile.class.getClassLoader();
+        String filename = classLoader.getResource(teste).getFile();
         ReadFile.readFile(filename);
         byte[] allFileBytes = ReadFile.readFileBytes(filename);
         for (int i = 0; i < allFileBytes.length; i++) {
