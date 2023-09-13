@@ -1,7 +1,6 @@
 p, free, /list/*, read
 p, premium, /list/*, read
 p, premium, /list/*, write
-g, admin, free
 g, admin, premium
 
 g, rauljcsantos@gmail.com, premium
