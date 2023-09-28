@@ -11,8 +11,8 @@ const { newEnforcer } = casbin;
 const port = 3001
 
 // system variables where Client credentials are stored
-const CLIENT_ID = '1081673935269-pb0fja1uhjduf1144g521p86iuimgagc.apps.googleusercontent.com'
-const CLIENT_SECRET = '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'
+const CLIENT_ID = process.env.CLIENT_ID
+const CLIENT_SECRET = process.env.CLIENT_SECRET
 // callback URL configured during Client registration in OIDC provider
 const CALLBACK = 'callback'
 
